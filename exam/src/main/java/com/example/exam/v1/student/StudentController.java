@@ -1,5 +1,6 @@
 package com.example.exam.v1.student;
 
+import com.example.exam.exception.NoDataException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,7 +38,7 @@ public class StudentController {
 		
 		return ResponseEntity.ok(
 				StudentResponse.of(studentRepository.findById(id)
-				.orElseThrow(InvalidArgumentException::new)));
+				.orElseThrow(() -> new NoDataException("존재하지 않는 학생 ID"))));
 				
 	}
 	
