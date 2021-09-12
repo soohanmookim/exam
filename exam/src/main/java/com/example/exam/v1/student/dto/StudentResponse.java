@@ -2,7 +2,7 @@ package com.example.exam.v1.student.dto;
 
 import org.springframework.boot.jackson.JsonComponent;
 
-import com.example.exam.v1.student.entity.Student;
+import com.example.exam.v1.student.domain.entity.Student;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

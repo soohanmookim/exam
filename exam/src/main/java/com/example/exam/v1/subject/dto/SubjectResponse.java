@@ -1,10 +1,17 @@
 package com.example.exam.v1.subject.dto;
 
-import com.example.exam.v1.subject.entity.Subject;
-import lombok.*;
+import java.math.BigDecimal;
+
 import org.springframework.boot.jackson.JsonComponent;
 
-import java.math.BigDecimal;
+import com.example.exam.v1.subject.domain.entity.Subject;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
