@@ -13,4 +13,3 @@ public class NoDataException extends RuntimeException {
 	private String message;
 
 }
-밋
