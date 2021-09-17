@@ -1,10 +1,12 @@
 package com.example.exam.v1.student.domain.entity;
 
+import com.example.exam.v1.grade.domain.entity.Grade;
 import com.example.exam.v1.student.dto.StudentRequest;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -30,6 +32,9 @@ public class Student {
 	@Column(scale = 2)
 	@ColumnDefault(value = "0")
 	private BigDecimal average;
+
+	@OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+	private List<Grade> gradeList;
 	
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;

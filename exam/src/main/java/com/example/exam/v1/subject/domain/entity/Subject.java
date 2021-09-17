@@ -2,13 +2,11 @@ package com.example.exam.v1.subject.domain.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import com.example.exam.v1.grade.domain.entity.Grade;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -40,6 +38,9 @@ public class Subject {
 	@Column(scale = 2)
 	@ColumnDefault(value = "0")
 	private BigDecimal average;
+
+	@OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
+	private List<Grade> gradeList;
 	
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;

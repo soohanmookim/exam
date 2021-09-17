@@ -37,10 +37,10 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Student student;
     
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Subject subject;
     
     @ColumnDefault(value = "0")

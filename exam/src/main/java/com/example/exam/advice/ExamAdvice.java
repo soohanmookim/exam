@@ -1,17 +1,17 @@
 package com.example.exam.advice;
 
-import org.springframework.http.HttpStatus;
+import com.example.exam.exception.NoDataException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.exam.exception.NoDataException;
-
+@Slf4j
 @RestControllerAdvice
 public class ExamAdvice {
 
 	@ExceptionHandler(value = NoDataException.class)
-	public ResponseEntity<HttpStatus> NoDataExceptionHandler(RuntimeException e) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	public ResponseEntity<ErrorResponse> NoDataExceptionHandler(RuntimeException e) {
+		return ResponseEntity.badRequest().body(ErrorResponse.builder().message(e.getMessage()).build());
 	}
 }
