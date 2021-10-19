@@ -41,7 +41,8 @@ public class GradeController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<GradeDeleteResponse> delete(@PathVariable Long id) {
-		return ResponseEntity.ok(gradeService.delete(id));
+		gradeService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }

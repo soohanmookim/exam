@@ -1,8 +1,12 @@
 package com.example.exam.v1.subject.domain.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.*;
 
@@ -22,7 +26,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @NoArgsConstructor
@@ -41,7 +44,7 @@ public class Subject {
 
 	@OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
 	private List<Grade> gradeList;
-	
+
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
@@ -51,5 +54,10 @@ public class Subject {
 	public static Subject of(SubjectRequest request) {
 		return Subject.builder().name(request.getName()).build();
 	}
-	
+	public void updateAverage() {
+		Integer total = Optional.of(getGradeList()).orElse(Collections.singletonList(new Grade())).stream().mapToInt(Grade::getScore).sum();
+		Long count = Optional.of(getGradeList()).orElse(Arrays.asList(new Grade())).stream().count();
+
+		setAverage(BigDecimal.valueOf(total).divide(BigDecimal.valueOf(count), 2, RoundingMode.CEILING));
+	}
 }

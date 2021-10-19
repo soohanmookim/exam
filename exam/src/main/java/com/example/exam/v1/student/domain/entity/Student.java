@@ -5,8 +5,9 @@ import com.example.exam.v1.student.dto.StudentRequest;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -16,7 +17,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @NoArgsConstructor
@@ -46,6 +46,13 @@ public class Student {
 		return Student.builder()
 				.name(request.getName())
 				.build();
+	}
+
+	public void updateAverage() {
+
+		Integer total = Optional.of(getGradeList()).orElseGet(()-> Collections.singletonList(Grade.builder().score(0).build())).stream().mapToInt(Grade::getScore).sum();
+		Long count = Optional.of(getGradeList()).orElse(Arrays.asList(new Grade())).stream().count();
+		setAverage(BigDecimal.valueOf(total).divide(BigDecimal.valueOf(count), 2, RoundingMode.CEILING));
 	}
 
 }

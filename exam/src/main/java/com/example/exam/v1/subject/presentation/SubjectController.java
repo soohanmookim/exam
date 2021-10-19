@@ -1,5 +1,6 @@
 package com.example.exam.v1.subject.presentation;
 
+import com.example.exam.v1.subject.application.SubjectService;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.exam.exception.NoDataException;
 import com.example.exam.v1.subject.domain.SubjectRepository;
 import com.example.exam.v1.subject.domain.entity.Subject;
-import com.example.exam.v1.subject.dto.SubjectDeleteResponse;
 import com.example.exam.v1.subject.dto.SubjectRequest;
 import com.example.exam.v1.subject.dto.SubjectResponse;
 
@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class SubjectController {
 
     private final SubjectRepository subjectRepository;
+    private final SubjectService subjectService;
 
     @PostMapping
     @Description("과목 추가")
@@ -46,12 +47,11 @@ public class SubjectController {
     
    @DeleteMapping("/{id}")
    @Description("특정 과목 삭제")
-   public ResponseEntity<SubjectDeleteResponse> deleteById(@PathVariable Long id) {
+   public ResponseEntity<SubjectResponse> deleteById(@PathVariable Long id) {
+
+       subjectService.deleteById(id);
 	   
-       subjectRepository.findById(id).orElseThrow(() -> new NoDataException("존재하지 않는 과목 ID"));
-	   subjectRepository.deleteById(id);
-	   
-	   return ResponseEntity.ok(new SubjectDeleteResponse(id));
+	   return ResponseEntity.noContent().build();
    }
 }
 
